@@ -1,6 +1,12 @@
 package com.app.weather.data.remote.dto.weather_forecast
 
+import android.annotation.SuppressLint
 import com.app.weather.domain.model.weather_forecast.WeatherForecast
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 data class WeatherForecastDto(
     val current: Current,
@@ -22,7 +28,7 @@ fun WeatherForecastDto.toWeatherForecast(): WeatherForecast {
             current.is_day,
             current.temp_c
         ),
-        forecast = forecast
+        forecast = convertDateToDay(forecast)
         ,
         location = com.app.weather.domain.model.common.Location(
             location.country,
@@ -32,4 +38,14 @@ fun WeatherForecastDto.toWeatherForecast(): WeatherForecast {
             location.region
         )
     )
+}
+
+@SuppressLint("NewApi")
+private fun convertDateToDay(forecast: Forecast): Forecast{
+    val listForecastDay = forecast.forecastday
+    for (index in 0..listForecastDay.size) {
+        listForecastDay.get(index).date = LocalDate.parse(listForecastDay[index].toString()).dayOfWeek.name
+    }
+
+    return Forecast(listForecastDay)
 }
