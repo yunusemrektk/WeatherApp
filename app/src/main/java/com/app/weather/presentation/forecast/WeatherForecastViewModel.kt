@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.app.weather.common.Constants
 import com.app.weather.common.Resource
 import com.app.weather.domain.usecases.getweathers.GetWeatherForecastUseCase
-import com.app.weather.presentation.forecast.components.ForecastState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

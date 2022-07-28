@@ -1,12 +1,13 @@
 package com.app.weather.data.remote.dto.weather_forecast
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.expandHorizontally
+import com.app.weather.domain.model.weather_forecast.ForecastDay
+import com.app.weather.domain.model.weather_forecast.Hour
 import com.app.weather.domain.model.weather_forecast.WeatherForecast
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 data class WeatherForecastDto(
     val current: Current,
@@ -26,26 +27,38 @@ fun WeatherForecastDto.toWeatherForecast(): WeatherForecast {
             current.feelslike_c,
             current.humidity,
             current.is_day,
-            current.temp_c
+            current.temp_c,
+            location.name
         ),
         forecast = convertDateToDay(forecast)
-        ,
-        location = com.app.weather.domain.model.common.Location(
-            location.country,
-            location.lat,
-            location.localtime,
-            location.name,
-            location.region
-        )
     )
 }
 
 @SuppressLint("NewApi")
-private fun convertDateToDay(forecast: Forecast): Forecast{
+private fun convertDateToDay(forecast: Forecast): com.app.weather.domain.model.weather_forecast.Forecast{
     val listForecastDay = forecast.forecastday
+    val listRetVal  = ArrayList<ForecastDay>(7)
+
     for (index in 0..listForecastDay.size) {
-        listForecastDay.get(index).date = LocalDate.parse(listForecastDay[index].toString()).dayOfWeek.name
+        listForecastDay[index].date = LocalDate.parse(listForecastDay[index].toString()).dayOfWeek.name
+        for(hours in listForecastDay[index].hour) {
+            hours.time = formatHour(hours.time)
+        }
+
     }
 
-    return Forecast(listForecastDay)
+    listForecastDay.let { it ->
+        it.forEach { it ->
+            listRetVal.add(ForecastDay(it.astro, it.date, it.date_epoch, it.day))
+        }
+    }
+
+    return com.app.weather.domain.model.weather_forecast.Forecast(listRetVal)
+}
+
+@SuppressLint("NewApi")
+private fun formatHour(date: String): String {
+    val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
+    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    return LocalDateTime.parse(date , dateFormat).format(timeFormat)
 }

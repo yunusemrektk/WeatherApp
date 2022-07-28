@@ -3,7 +3,7 @@ package com.app.weather.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import com.app.weather.presentation.weather.ForecastScreen
+import com.app.weather.presentation.forecast.ForecastScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

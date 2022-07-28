@@ -1,4 +1,4 @@
-package com.app.weather.presentation.weather
+package com.app.weather.presentation.forecast
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.app.weather.presentation.forecast.WeatherForecastViewModel
 import com.app.weather.presentation.weather.components.WeatherForecastItem
 
 @Composable
@@ -27,8 +26,8 @@ fun ForecastScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             state.weather?.forecast?.let {
-                items(it.forecastday) { day ->
-                    WeatherForecastItem(forecast = day)
+                items(it.forecast) { forecastday ->
+                    WeatherForecastItem()
                 }
             }
         }

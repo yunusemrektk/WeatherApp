@@ -5,6 +5,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 /**
@@ -19,7 +20,11 @@ class ExampleUnitTest {
         println("EMRE")
         val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         dateFormat.parse("2022-07-27")
-        val parse = LocalDate.parse("2022-07-27").dayOfWeek.name
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val parse = formatter.parse("2022-07-28 00:00")
+
+        val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
+        val time = LocalDateTime.parse("2022-07-28 00:00" , DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).format(timeFormat)
 
         println(parse)
 
