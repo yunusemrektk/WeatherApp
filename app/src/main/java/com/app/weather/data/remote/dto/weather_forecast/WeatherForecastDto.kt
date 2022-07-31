@@ -1,9 +1,9 @@
 package com.app.weather.data.remote.dto.weather_forecast
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.expandHorizontally
+import com.app.weather.domain.model.weather_forecast.Condition
+import com.app.weather.domain.model.weather_forecast.Day
 import com.app.weather.domain.model.weather_forecast.ForecastDay
-import com.app.weather.domain.model.weather_forecast.Hour
 import com.app.weather.domain.model.weather_forecast.WeatherForecast
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -49,7 +49,7 @@ private fun convertDateToDay(forecast: Forecast): com.app.weather.domain.model.w
 
     listForecastDay.let { it ->
         it.forEach { it ->
-            listRetVal.add(ForecastDay(it.astro, it.date, it.date_epoch, it.day))
+            listRetVal.add(ForecastDay(it.astro, it.date, it.date_epoch, Day(it.day.avghumidity,it.day.avgtemp_c, Condition(it.day.condition.code, it.day.condition.icon, it.day.condition.text), it.day.daily_chance_of_rain, it.day.daily_chance_of_snow,it.day.daily_will_it_rain, it.day.daily_will_it_snow, it.day.maxtemp_c, it.day.mintemp_c)))
         }
     }
 

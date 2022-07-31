@@ -15,7 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.app.weather.presentation.weather.components.WeatherForecastItem
+import com.app.weather.presentation.Screen
+import com.app.weather.presentation.forecast.components.WeatherForecastItem
 
 @Composable
 fun ForecastScreen(
@@ -24,13 +25,10 @@ fun ForecastScreen(
 
     val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            state.weather?.forecast?.let {
-                items(it.forecast) { forecastday ->
-                    WeatherForecastItem()
-                }
-            }
+        state.weather?.let {
+            WeatherScreen(it)
         }
+
         if (state.error.isNotBlank()) {
             Text(
                 text = state.error,

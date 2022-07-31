@@ -1,10 +1,7 @@
 package com.app.weather
 
-import com.app.weather.data.remote.dto.weather_forecast.Forecast
 import org.junit.Test
 
-import org.junit.Assert.*
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

@@ -46,19 +46,25 @@ fun CurrentItem (
             text = "${current.locName}",
             style = MaterialTheme.typography.h2,
             overflow = TextOverflow.Ellipsis,
-            color = Color.Black
+            color = Color.White
         )
         Text(
             text = "${current.condition.text}",
             style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
-            color = Color.Black
+            color = Color.White
         )
+
+        Image(
+            painter = painterResource(id = com.app.weather.R.drawable.cloudy),
+            contentDescription = "rainy"
+        )
+
         Text(
             text = "${current.temp_c}°",
             style = MaterialTheme.typography.h2,
             overflow = TextOverflow.Ellipsis,
-            color = Color.Black
+            color = Color.White
         )
     }
 }

@@ -34,7 +34,7 @@ fun HourItem (
             text = "01:00",
             style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
-            color = Color.Black
+            color = Color.White
         )
 
         /*            Image(
@@ -46,14 +46,14 @@ fun HourItem (
             text = "icon",
             style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
-            color = Color.Black
+            color = Color.White
         )
         Text(
             // text = "${hour.temp_c}°",
             text = "26°",
             style = MaterialTheme.typography.h4,
             overflow = TextOverflow.Ellipsis,
-            color = Color.Black
+            color = Color.White
         )
     }
 

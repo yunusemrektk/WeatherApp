@@ -1,7 +1,7 @@
 package com.app.weather.domain.model.weather_forecast
 
 data class Day(
-    val avghumidity: Int,
+    val avghumidity: Double,
     val avgtemp_c: Double,
     val condition: Condition,
     val daily_chance_of_rain: Int,
