@@ -11,18 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.app.weather.domain.model.weather_forecast.Current
 import com.app.weather.domain.model.weather_forecast.Hour
 
-@Preview
-@Composable
-fun composeItem() {
-    HourItem()
-}
-
 @Composable
 fun HourItem (
-    //hour: Hour
+    hour: Hour
 ) {
 
     Column(
@@ -30,27 +25,22 @@ fun HourItem (
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            //  text = "${hour.time}",
-            text = "01:00",
+            text = "${hour.time}",
             style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
             color = Color.White
         )
 
-        /*            Image(
-                painter = rememberAsyncImagePainter("https:$weather.current.condition.icon"),
-                contentDescription = "condition icon"
-            )*/
+        AsyncImage(model = hour.condition.icon, contentDescription = null)
+
         Text(
-            // text = "${hour.condition.icon}",
-            text = "icon",
+            text = hour.condition.icon,
             style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
             color = Color.White
         )
         Text(
-            // text = "${hour.temp_c}°",
-            text = "26°",
+            text = "${hour.temp_c}°",
             style = MaterialTheme.typography.h4,
             overflow = TextOverflow.Ellipsis,
             color = Color.White

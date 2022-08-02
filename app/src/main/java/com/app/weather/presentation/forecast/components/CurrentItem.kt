@@ -16,17 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.app.weather.domain.model.weather_forecast.Condition
 import com.app.weather.domain.model.weather_forecast.Current
-
-@Preview
-@Composable
-fun ComposeWeather(){
-    CurrentItem(
-        Current(1,
-            Condition(1,"test","Sunny"), 38.0, 15, 3,38.0,"Ordu"))
-}
-
 
 @Composable
 fun CurrentItem (
@@ -55,10 +47,7 @@ fun CurrentItem (
             color = Color.White
         )
 
-        Image(
-            painter = painterResource(id = com.app.weather.R.drawable.cloudy),
-            contentDescription = "rainy"
-        )
+        AsyncImage(model = current.condition.icon, contentDescription = null)
 
         Text(
             text = "${current.temp_c}°",

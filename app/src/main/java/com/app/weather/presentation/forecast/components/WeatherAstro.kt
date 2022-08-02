@@ -16,12 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.app.weather.R
 import com.app.weather.data.remote.dto.weather_forecast.Astro
 
-@Preview
-@Composable
-fun composeExtra() {
-    val astro = Astro("0","New Moon","04:20 AM", "09.27 PM", "05:18 AM", "08:55 PM")
-    WeatherAstro(astro)
-}
 @Composable
 fun WeatherAstro(astro: Astro) {
     Card(

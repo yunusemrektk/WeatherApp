@@ -40,6 +40,7 @@ private fun convertDateToDay(forecast: Forecast): com.app.weather.domain.model.w
     val listRetVal  = ArrayList<ForecastDay>(7)
 
     for (index in 0..listForecastDay.size) {
+        //TODO fix this index problem
         listForecastDay[index].date = LocalDate.parse(listForecastDay[index].toString()).dayOfWeek.name
         for(hours in listForecastDay[index].hour) {
             hours.time = formatHour(hours.time)

@@ -1,9 +1,12 @@
 package com.app.weather.di
 
+import android.app.Application
 import com.app.weather.common.Constants
 import com.app.weather.data.remote.WeatherApi
 import com.app.weather.data.repository.WeatherRepositoryImpl
 import com.app.weather.domain.repository.WeatherRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,4 +35,9 @@ object AppModule {
         return WeatherRepositoryImpl(api)
     }
 
+    @Provides
+    @Singleton
+    fun provideLocationClient(app: Application): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(app)
+    }
 }

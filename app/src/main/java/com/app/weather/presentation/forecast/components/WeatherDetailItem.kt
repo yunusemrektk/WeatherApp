@@ -18,15 +18,6 @@ import com.app.weather.domain.model.weather_forecast.Condition
 import com.app.weather.domain.model.weather_forecast.Current
 import com.app.weather.domain.model.weather_forecast.Day
 
-@Preview
-@Composable
-fun composeDetail(){
-    WeatherDetailItem(Day(1.0,27.0,
-        Condition(1,"test","Sunny"),25,0,15,0,42.0,25.0)
-    ,41)
-
-}
-
 @Composable
 fun WeatherDetailItem (
     day: Day,

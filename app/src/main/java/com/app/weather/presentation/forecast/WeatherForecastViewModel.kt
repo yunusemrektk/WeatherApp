@@ -1,45 +1,38 @@
 package com.app.weather.presentation.forecast
 
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.app.weather.common.Constants
-import com.app.weather.common.Resource
-import com.app.weather.domain.usecases.getweathers.GetWeatherForecastUseCase
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import com.app.weather.domain.location.LocationTracker
+import com.app.weather.domain.repository.WeatherRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class WeatherForecastViewModel  @Inject constructor(
-    private val getForecastUseCase: GetWeatherForecastUseCase,
-    savedStateHandle: SavedStateHandle
+    private val repository: WeatherRepository,
+    private val locationTracker: LocationTracker
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(ForecastState())
-    val state: State<ForecastState> = _state
+    var state by mutableStateOf(WeatherState())
+        private set
 
-    init {
-        savedStateHandle.get<String>(Constants.PRM_CITY)?.let { city ->
-            getWeather(city)
+
+    fun loadWeatherInfo() {
+        viewModelScope.launch {
+            state = state.copy(isLoading = true)
+            locationTracker.getCurrentLocation()?.let { getWeather(it) }
+                ?: kotlin.run {
+                state = state.copy(isLoading = false,
+                    error = "Couldn't retrieve location")
+            }
         }
     }
 
-    private fun getWeather(city: String) {
-        getForecastUseCase(city).onEach { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _state.value = ForecastState(weather = result.data!!)
-                }
-                is Resource.Error -> {
-                    _state.value =
-                        ForecastState(error = result.message ?: "An unexpected error occured")
-                }
-                is Resource.Loading -> {
-                    _state.value = ForecastState(isLoading = true)
-                }
-            }
-        }.launchIn(viewModelScope)
+    private suspend fun getWeather(city: String) {
+        state = state.copy(isLoading = false, weather = repository.getWeatherForecast(city), error = null)
     }
 }
