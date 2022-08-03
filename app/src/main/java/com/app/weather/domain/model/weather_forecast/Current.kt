@@ -7,5 +7,6 @@ data class Current(
     val humidity: Int,
     val is_day: Int,
     val temp_c: Double,
-    val locName: String
+    val locName: String,
+    val wind_kph: Double,
 )

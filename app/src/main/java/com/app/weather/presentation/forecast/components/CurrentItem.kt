@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.app.weather.domain.model.weather_forecast.Condition
 import com.app.weather.domain.model.weather_forecast.Current
 
@@ -25,33 +26,27 @@ fun CurrentItem (
     current: Current
 ) {
     Column(
-        modifier = Modifier.padding(10.dp),
+        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-
-        }
         Text(
-            text = "${current.locName}",
-            style = MaterialTheme.typography.h2,
+            text = current.locName,
+            style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
             color = Color.White
         )
         Text(
-            text = "${current.condition.text}",
+            text = current.condition.text,
             style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
             color = Color.White
         )
 
-        AsyncImage(model = current.condition.icon, contentDescription = null)
+        Image(painter = rememberAsyncImagePainter(model = "https:${current.condition.icon}"), contentDescription =null, Modifier.size(64.dp) )
 
         Text(
             text = "${current.temp_c}°",
-            style = MaterialTheme.typography.h2,
+            style = MaterialTheme.typography.h5,
             overflow = TextOverflow.Ellipsis,
             color = Color.White
         )
