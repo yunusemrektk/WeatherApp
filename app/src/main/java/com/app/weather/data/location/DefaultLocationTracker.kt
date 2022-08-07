@@ -18,9 +18,10 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 
 @ExperimentalCoroutinesApi
-class DefaultLocationTracker @Inject constructor (
+class DefaultLocationTracker @Inject constructor(
     private val locationClient: FusedLocationProviderClient,
-    private val application: Application): LocationTracker{
+    private val application: Application
+) : LocationTracker {
 
     override suspend fun getCurrentLocation(): String {
         return getCityFromLocation(cancellableCoroutine()!!)
@@ -28,26 +29,29 @@ class DefaultLocationTracker @Inject constructor (
 
     private suspend fun cancellableCoroutine(): Location? {
         val coarsePermission = ContextCompat.checkSelfPermission(
-            application, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+            application, Manifest.permission.ACCESS_COARSE_LOCATION
+        ) ==
                 PackageManager.PERMISSION_GRANTED
         val finePermission = ContextCompat.checkSelfPermission(
-            application, Manifest.permission.ACCESS_FINE_LOCATION) ==
+            application, Manifest.permission.ACCESS_FINE_LOCATION
+        ) ==
                 PackageManager.PERMISSION_GRANTED
 
-        val locationManager = application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager =
+            application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 
-        if(!coarsePermission || !finePermission || !isGpsEnabled) {
+        if (!coarsePermission || !finePermission || !isGpsEnabled) {
             return null
         }
 
         return suspendCancellableCoroutine { cont ->
             locationClient.lastLocation.apply {
-                if(isComplete) {
-                    if(isSuccessful){
+                if (isComplete) {
+                    if (isSuccessful) {
                         cont.resume(result)
-                    }else {
+                    } else {
                         cont.resume(null)
                     }
                     return@suspendCancellableCoroutine

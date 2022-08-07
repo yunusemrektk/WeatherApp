@@ -1,5 +1,7 @@
 package com.app.weather.domain.model.weather_forecast
 
+import com.app.weather.domain.model.design.CurrentDesign
+
 data class Current(
     val cloud: Int,
     val condition: Condition,
@@ -7,6 +9,6 @@ data class Current(
     val humidity: Int,
     val is_day: Int,
     val temp_c: Double,
-    val locName: String,
     val wind_kph: Double,
+    val currentDesign: CurrentDesign
 )

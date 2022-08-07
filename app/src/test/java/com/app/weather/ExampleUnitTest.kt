@@ -1,7 +1,6 @@
 package com.app.weather
 
 import org.junit.Test
-
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -21,9 +20,24 @@ class ExampleUnitTest {
         val parse = formatter.parse("2022-07-28 00:00")
 
         val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
-        val time = LocalDateTime.parse("2022-07-28 00:00" , DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).format(timeFormat)
+        val time =
+            LocalDateTime.parse("2022-07-28 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                .format(timeFormat)
 
         println(parse)
 
+    }
+
+    @Test
+    fun test1() {
+        val list = listOf("1", "2", "3", "4", "5")
+        list.toMutableList().removeAt(0)
+        //getList(list.toMutableList())
+        println(list)
+    }
+
+    private fun getList(list: MutableList<String>) {
+        list.removeAt(0)
+        list.removeAt(2)
     }
 }

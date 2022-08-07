@@ -1,8 +1,9 @@
 package com.app.weather.presentation.forecast.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +17,7 @@ import com.app.weather.domain.model.weather_forecast.Hour
 
 
 @Composable
-fun HourItem (
+fun HourItem(
     hour: Hour
 ) {
 
@@ -31,7 +32,11 @@ fun HourItem (
             color = Color.White
         )
 
-        Image(painter = rememberAsyncImagePainter(model = "https:${hour.icon}"), contentDescription =null, Modifier.size(48.dp))
+        Image(
+            painter = rememberAsyncImagePainter(model = "https:${hour.icon}"),
+            contentDescription = null,
+            Modifier.size(48.dp)
+        )
 
         Text(
             text = hour.text,

@@ -5,6 +5,10 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
 android {
     compileSdk 32
 
@@ -101,4 +105,12 @@ dependencies {
 
     //Location
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+}
+
+task giveVersionName(type:Copy){
+    from('release/')
+    into('release/')
+    include('app-release.apk')
+    String versionName = "weather_v${versionMajor}.${versionMinor}.${versionPatch}.apk"
+    rename('app-release.apk',versionName)
 }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeatherForecastViewModel  @Inject constructor(
+class WeatherForecastViewModel @Inject constructor(
     private val repository: WeatherRepository,
     private val locationTracker: LocationTracker
 ) : ViewModel() {
@@ -26,13 +26,25 @@ class WeatherForecastViewModel  @Inject constructor(
             state = state.copy(isLoading = true)
             locationTracker.getCurrentLocation()?.let { getWeather(it) }
                 ?: kotlin.run {
-                state = state.copy(isLoading = false,
-                    error = "Couldn't retrieve location")
-            }
+                    state = state.copy(
+                        isLoading = false,
+                        error = "Couldn't retrieve location"
+                    )
+                }
         }
     }
 
     private suspend fun getWeather(city: String) {
-        state = state.copy(isLoading = false, weather = repository.getWeatherForecast(city), error = null)
+        state = try {
+            state.copy(isLoading = false, weather = repository.getWeatherForecast(city), error = null)
+        }catch (e: Exception) {
+            e.printStackTrace()
+            state.copy(
+                isLoading = false,
+                weather = null,
+                error = "Uups!! Server is not available"
+            )
+        }
+
     }
 }

@@ -5,5 +5,5 @@ data class Forecastday(
     var date: String,
     val date_epoch: Int,
     val day: Day,
-    val hour: List<Hour>
+    var hour: List<Hour>
 )
