@@ -44,7 +44,8 @@ fun ErrorScreen(
         ) {
             Image(
                 painterResource(id = R.drawable.error),
-                null
+                null,
+                modifier = Modifier.size(96.dp)
             )
 
             Spacer(modifier = Modifier.height(64.dp))

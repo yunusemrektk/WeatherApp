@@ -23,8 +23,8 @@ class DefaultLocationTracker @Inject constructor(
     private val application: Application
 ) : LocationTracker {
 
-    override suspend fun getCurrentLocation(): String {
-        return getCityFromLocation(cancellableCoroutine()!!)
+    override suspend fun getCurrentLocation(): String? {
+        return getCityFromLocation(cancellableCoroutine())
     }
 
     private suspend fun cancellableCoroutine(): Location? {
@@ -70,7 +70,9 @@ class DefaultLocationTracker @Inject constructor(
         }
     }
 
-    private fun getCityFromLocation(location: Location?): String {
+    private fun getCityFromLocation(location: Location?): String? {
+        if(location == null)
+            return null
         val address: List<Address>?
         val geocoder = Geocoder(application, Locale.getDefault())
         var city = ""
