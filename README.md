@@ -12,6 +12,6 @@ Location Tracker is used in this project to get current locations' weather forec
 
 # Screenshots
 
- <img src="WeatherApp/ss/s1.png" width=500>
- <img src="WeatherApp/ss/s2.png" width=500>
- <img src="WeatherApp/ss/s3.png" width=500>
+ <img src="ss/s1.png" width=500>
+ <img src="ss/s2.png" width=500>
+ <img src="ss/s3.png" width=500>
